@@ -94,9 +94,7 @@ const Login = () => {
     try {
       const user = await authInstance.post('/signin', loginData)
       sessionStorage.setItem('User', JSON.stringify(user.data));
-      const admin = sessionStorage.getItem('User');
-      const User = JSON.parse(admin).user;
-      console.log(User,user)
+      console.log(user.data)
       setLoading(false);
       setMsg1(user.data.message)
       console.log('login Done', user.data)
@@ -105,11 +103,13 @@ const Login = () => {
         setLoading(false);
         setMsg1('Password is incorrect or User not found!');
       }
-      else if (User.userRole == 'admin') {
-        navigate('/dashboard')
-      }
-      else if (User.userRole == 'customer') {
-        navigate('/products')
+      else {
+        if (user.data.user.userRole == 'admin') {
+          navigate('/dashboard')
+        }
+        else {
+          navigate('/products')
+        }
       }
       setLoginData({
         email: '',
