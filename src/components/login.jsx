@@ -105,10 +105,10 @@ const Login = () => {
       }
       else {
         if (user.data.user.userRole == 'admin') {
-          navigate('/dashboard')
+          navigate('/admin');
         }
         else {
-          navigate('/products')
+          navigate('/products');
         }
       }
       setLoginData({
