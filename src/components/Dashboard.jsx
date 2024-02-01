@@ -1,26 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Navlink from './Navbar/Navbar';
 import { protecdInstance } from '../services/instance';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 function Profile() {
   const [profileData, setProfileData] = useState({
     name: '',
     email: '',
-    aternateEmail: '',
+    alternateEmail: '',
     Contact: '',
     gender: '',
     address: '',
   });
 
+  const [editableField, setEditableField] = useState(null);
+  const inputRefs = {
+    name: useRef(null),
+    email: useRef(null),
+    alternateEmail: useRef(null),
+    Contact: useRef(null),
+    gender: useRef(null),
+    address: useRef(null),
+  };
+
   useEffect(() => {
     getProfileData();
   }, []);
+
+  useEffect(() => {
+    if (editableField) {
+      inputRefs[editableField].current.focus();
+      inputRefs[editableField].current.setSelectionRange(
+        inputRefs[editableField].current.value.length,
+        inputRefs[editableField].current.value.length
+      );
+    }
+  }, [editableField]);
 
   const getProfileData = async () => {
     try {
       const response = await protecdInstance.get('/ticket/profile');
       setProfileData(response.data);
-      console.log(profileData)
     } catch (error) {
       console.error('Error fetching profile data:', error);
     }
@@ -30,9 +52,14 @@ function Profile() {
     try {
       await protecdInstance.post('/ticket/profile', profileData);
       console.log('Profile updated successfully');
+      setEditableField(null); // Reset editable field after update
     } catch (error) {
       console.error('Error updating profile:', error);
     }
+  };
+
+  const handleEdit = (fieldName) => {
+    setEditableField(fieldName);
   };
 
   const handleChange = (e) => {
@@ -43,41 +70,43 @@ function Profile() {
     }));
   };
 
+  const displayedFields = ['name', 'email', 'alternateEmail', 'Contact', 'gender', 'address'];
+
   return (
     <div>
       <Navlink />
-      <h1>Profile</h1>
-      <div>
-        <label>Name:</label>
-        <input type="text" name="name" value={profileData.name} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Email:</label>
-        <input type="text" name="email" value={profileData.email} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Alternate Email:</label>
-        <input
-          type="text"
-          name="aternateEmail"
-          value={profileData.aternateEmail}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label>Contact:</label>
-        <input type="text" name="Contact" value={profileData.Contact} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Gender:</label>
-        <input type="text" name="gender" value={profileData.gender} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Address:</label>
-        <input type="text" name="address" value={profileData.address} onChange={handleChange} />
-      </div>
-      <div>
-        <button onClick={handleUpdateProfile}>Update Profile</button>
+      <div className="container mt-4">
+        <h1>Profile</h1>
+        <div className="row">
+          <div className="col-md-6">
+            {displayedFields.map((fieldName) => (
+              <div key={fieldName} className="mb-3">
+                <label className="form-label">{fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}:</label>
+                <div className={`input-group ${editableField === fieldName ? 'active-input' : ''}`}>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name={fieldName}
+                    value={profileData[fieldName]||''}
+                    onChange={handleChange}
+                    readOnly={editableField !== fieldName}
+                    ref={inputRefs[fieldName]}
+                  />
+                  <button
+                    className="btn btn-outline-secondary"
+                    type="button"
+                    onClick={() => handleEdit(fieldName)}
+                  >
+                    <FontAwesomeIcon icon={faPencilAlt} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mb-3">
+          <button className="btn btn-primary " onClick={handleUpdateProfile}>Update Profile</button>
+        </div>
       </div>
     </div>
   );
