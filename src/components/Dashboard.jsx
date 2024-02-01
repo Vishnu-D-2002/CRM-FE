@@ -70,7 +70,7 @@ function Profile() {
     }));
   };
 
-  const displayedFields = ['name', 'email', 'alternateEmail', 'Contact', 'gender', 'address'];
+  const displayedFields = ['name', 'email', 'Contact', 'gender', 'address'];
 
   return (
     <div>
