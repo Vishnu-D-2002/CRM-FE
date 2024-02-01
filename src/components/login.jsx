@@ -92,43 +92,31 @@ const Login = () => {
     setLoading(true);
 
     try {
-      console.log('Signing in the User...');
-
-      const res = await authInstance.post('/signin', loginData);
-
-      if (res.data) {
-               
-        console.log('User login successfull', res.data);
-                
-        sessionStorage.setItem('User', JSON.stringify(res.data));
-
-              
+      const user = await authInstance.post('/signin', loginData)
+      sessionStorage.setItem('User', JSON.stringify(user.data));
+      const admin = sessionStorage.getItem('User');
+      const User = JSON.parse(admin).user;
+      console.log(User,user)
+      setLoading(false);
+      setMsg1(user.data.message)
+      console.log('login Done', user.data)
+      if (msg1 == 'Password is incorrect' || msg1 == 'User not found!') {
+        sessionStorage.clear();
         setLoading(false);
-
-        setLoginData({
-          email: '',
-          password: ''
-        });
-              
-        navigate('/products');
-
-        return res.data;
+        setMsg1('Password is incorrect or User not found!');
       }
-
-    }
-        
-    catch (error) {
-       
-      if (error.response) {
-        const status = error.response.status;
-        if (status === 404) {
-          return setMsg1('Password is wrong. Please check your password.');
-        } else if (status === 400) {
-          return setMsg1('Bad Request: ', error.response.data.error);
-        } else {
-          return setMsg1('Error While SigningUp', status);
-        }
+      else if (User.userRole == 'admin') {
+        navigate('/dashboard')
       }
+      else if (User.userRole == 'customer') {
+        navigate('/products')
+      }
+      setLoginData({
+        email: '',
+        password: ''
+      })
+    } catch (e) {
+      console.log('Error in signin', e);
     }
 
   };
