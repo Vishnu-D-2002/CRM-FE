@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import Navlink from './Navbar/Navbar';
 
 function Products() {
   const productData = [
@@ -73,9 +74,11 @@ function Products() {
   }
   
   return (
-    <div className='container-f bg-light p-4'>
+    
+    <div className='container-f bg-light'>
+      <Navlink/>
     <div>
-      <h1 className='text-center mb-4'>All Products</h1>
+      <h1 className='text-center mb-4 mt-4'>All Products</h1>
     </div>
     <div className='row'>
       {productData.map((product, index) => (

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { protecdInstance } from '../services/instance';
+import Navlink from './Navbar/Navbar';
 
 function CreateTicket() {
  const navigate=useNavigate()
@@ -47,7 +48,7 @@ function CreateTicket() {
         }
       };
   return (
-    <div><div>
+    <div><Navlink/><div>
       <form onSubmit={handleSubmit} className='create mx-auto '>
         <h2 className="text-center m-3">Create Ticket :</h2>
       <p className='ti'>Title:</p>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { protecdInstance } from '../services/instance';
+import Navlink from './Navbar/Navbar';
 
 function Ticket() {
   const [view, setView] = useState([]);
@@ -42,6 +43,7 @@ function Ticket() {
 
   return (
     <div>
+      <Navlink/>
       <div className="mt-4">
         <h2 className="text-center m-3">All Tickets</h2>
         <button className="btn btn-outline-success m-3" onClick={handleCreateTicket}>

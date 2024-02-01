@@ -110,7 +110,7 @@ const Login = () => {
           password: ''
         });
               
-        navigate('/dashboard');
+        navigate('/products');
 
         return res.data;
       }
