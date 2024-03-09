@@ -74,31 +74,45 @@ function Products() {
   }
   
   return (
-    
-    <div className='container-f bg-light'>
+    <div className="container-f bg-dark-subtle">
       <Navlink />
       <div>
-        <h1 className='text-center mb-4 mt-4'>All Products</h1>
+        <h1 className="text-center mb-4 mt-4">All Products</h1>
       </div>
-      <div className='row'>
+      <div className="row">
         {productData.map((product, index) => (
-          <div key={index} className='col-md-4 mb-4'>
-            <div className='card'>
-              <h3 className='card-title text-center fs-2 mt-2 text-danger'>{product.product}</h3>
+          <div key={index} className="col-md-4 mb-4 ">
+            <div className="card">
+              <h3 className="card-title text-center fs-2 mt-2 text-danger">
+                {product.product}
+              </h3>
               <img
                 src={product.imageUrl}
                 alt={product.product}
-                className='img-product img-fluid mx-auto mt-3'
-                style={{ maxWidth: '100%', height: '190px' }}
+                className="img-product img-fluid mx-auto mt-3"
+                style={{ maxWidth: "100%", height: "190px" }}
               />
 
-              <div className='card-body '>
-                <p className='card-text'>Brand: {product.category}</p>
-                <p className='card-text'>Price :<span className='text-success'> Rs. {product.price}</span></p>
-                <p>Details :</p>
-                <p className='card-text des'>{product.description}</p>
-                <div className='d-flex '>
-                  <button onClick={handleTicket} className='btn btn-info mx-auto'>Enquire</button>
+              <div className="card-body ">
+                <p className="card-text">
+                  <strong>Brand : </strong>
+                  {product.category}
+                </p>
+                <p className="card-text">
+                  <strong>Price :</strong>
+                  <span className="text-success"> Rs. {product.price}</span>
+                </p>
+                <p>
+                  <strong>Details :</strong>
+                </p>
+                <p className="card-text des">{product.description}</p>
+                <div className="d-flex ">
+                  <button
+                    onClick={handleTicket}
+                    className="btn btn-info mx-auto"
+                  >
+                    Enquire
+                  </button>
                 </div>
               </div>
             </div>
@@ -106,7 +120,6 @@ function Products() {
         ))}
       </div>
     </div>
-  
   );
 }
 

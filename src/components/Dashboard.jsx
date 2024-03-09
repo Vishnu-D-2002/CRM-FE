@@ -75,19 +75,27 @@ function Profile() {
   return (
     <div>
       <Navlink />
-      <div className="container mt-4">
-        <h1>Profile</h1>
+      <div className="container bg-dark-subtle ">
+        <h1 className='text-center p-4'>Profile</h1>
         <div className="row">
           <div className="col-md-6">
             {displayedFields.map((fieldName) => (
               <div key={fieldName} className="mb-3">
-                <label className="form-label">{fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}:</label>
-                <div className={`input-group ${editableField === fieldName ? 'active-input' : ''}`}>
+                <label className="form-label">
+                  <strong className='fs-5'>
+                    {fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} :
+                  </strong>
+                </label>
+                <div
+                  className={`input-group ${
+                    editableField === fieldName ? "active-input" : ""
+                  }`}
+                >
                   <input
                     type="text"
                     className="form-control"
                     name={fieldName}
-                    value={profileData[fieldName]||''}
+                    value={profileData[fieldName] || ""}
                     onChange={handleChange}
                     readOnly={editableField !== fieldName}
                     ref={inputRefs[fieldName]}
@@ -104,8 +112,10 @@ function Profile() {
             ))}
           </div>
         </div>
-        <div className="mb-3">
-          <button className="btn btn-primary " onClick={handleUpdateProfile}>Update Profile</button>
+        <div className="mb-3 d-flex">
+          <button className="btn btn-primary mx-auto mt-2 mb-4" onClick={handleUpdateProfile}>
+            Update Profile
+          </button>
         </div>
       </div>
     </div>

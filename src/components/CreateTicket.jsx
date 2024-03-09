@@ -48,84 +48,125 @@ function CreateTicket() {
         }
       };
   return (
-    <div><Navlink/><div>
-      <form onSubmit={handleSubmit} className='create mx-auto '>
-        <h2 className="text-center m-3">Create Ticket :</h2>
-      <p className='ti'>Title:</p>
-      <select value={ticket.title} onChange={handleTitleChange} required>
-        <option value="selectAnyOne">--Select Any one--</option>
-        <option value="Product Related">Product Related</option>
-        <option value="ExchangeRelated">Exchange Related</option>
-                  <option value="Payments">Payments</option>
-                  <option value="Others">Others</option>
-      </select>
-
+    <div>
+      <Navlink />
       <div>
-        <p className='ti mt-3'>Category:</p>
-        {ticket.title === 'Product Related' ? (
-          <select value={ticket.category} onChange={handleCategoryChange} required>
+        <form onSubmit={handleSubmit} className="create mx-auto bg-dark-subtle">
+          <h2 className="text-center m-3">Create Ticket :</h2>
+          <p className="ti">Title:</p>
+          <select
+            className="rounded-3"
+            value={ticket.title}
+            onChange={handleTitleChange}
+            required
+          >
             <option value="selectAnyOne">--Select Any one--</option>
-            <option value="Return Product">Return Product</option>
-            <option value="Replacement">Replace product</option>
-            <option value="Waranty Related">Waranty Related</option>
-            <option value="Product more Info">Product more Info</option>
-          </select>
-        ) : ticket.title === 'ExchangeRelated' ? (
-          <select value={ticket.category} onChange={handleCategoryChange}>
-            <option value="selectAnyOne">--Select Any one--</option>
-            <option value="Old Product Price">Old Product Price</option>
-            <option value="Old Product warenty">Old Product warenty</option>
-            <option value="Damage">Damage</option>
-          </select>
-        ) : ticket.title === 'Others' ? (
-          <select value={ticket.category} onChange={handleCategoryChange} required>
-            <option value="selectAnyOne">--Select Any one--</option>
-            <option value="feedback">Feedback</option>
+            <option value="Product Related">Product Related</option>
+            <option value="ExchangeRelated">Exchange Related</option>
+            <option value="Payments">Payments</option>
             <option value="Others">Others</option>
           </select>
-        ) : ticket.title === 'Payments' ? (
-          <select value={ticket.category} onChange={handleCategoryChange} required>
-            <option value="selectAnyOne">--Select Any one--</option>
-            <option value="UPI Transation">UPI Transaction</option>
-            <option value="Net banking">Net banking</option>
-            <option value="EMI option">EMI Option</option>
-          </select>
-        ) : (
+
           <div>
-            <select>
+            <p className="ti mt-3">Category:</p>
+            {ticket.title === "Product Related" ? (
+              <select
+                className="rounded-3"
+                value={ticket.category}
+                onChange={handleCategoryChange}
+                required
+              >
+                <option value="selectAnyOne">--Select Any one--</option>
+                <option value="Return Product">Return Product</option>
+                <option value="Replacement">Replace product</option>
+                <option value="Waranty Related">Waranty Related</option>
+                <option value="Product more Info">Product more Info</option>
+              </select>
+            ) : ticket.title === "ExchangeRelated" ? (
+              <select
+                className="rounded-3"
+                value={ticket.category}
+                onChange={handleCategoryChange}
+              >
+                <option value="selectAnyOne">--Select Any one--</option>
+                <option value="Old Product Price">Old Product Price</option>
+                <option value="Old Product warenty">Old Product warenty</option>
+                <option value="Damage">Damage</option>
+              </select>
+            ) : ticket.title === "Others" ? (
+              <select
+                className="rounded-3"
+                value={ticket.category}
+                onChange={handleCategoryChange}
+                required
+              >
+                <option value="selectAnyOne">--Select Any one--</option>
+                <option value="feedback">Feedback</option>
+                <option value="Others">Others</option>
+              </select>
+            ) : ticket.title === "Payments" ? (
+              <select
+                className="rounded-3"
+                value={ticket.category}
+                onChange={handleCategoryChange}
+                required
+              >
+                <option value="selectAnyOne">--Select Any one--</option>
+                <option value="UPI Transation">UPI Transaction</option>
+                <option value="Net banking">Net banking</option>
+                <option value="EMI option">EMI Option</option>
+              </select>
+            ) : (
+              <div>
+                <select className="rounded-3">
+                  <option value="selectAnyOne">--Select Any one--</option>
+                </select>
+              </div>
+            )}
+          </div>
+          <div>
+            <label className="ti mt-3 mb-2 ">Description:</label>
+            <br />
+            <textarea
+              className="textbox rounded-3 "
+              type="text"
+              value={ticket.description}
+              onChange={handleDescriptionChange}
+              required
+            ></textarea>
+          </div>
+          <div>
+            <p className="ti mt-3">Language:</p>
+            <select
+              className="rounded-3"
+              value={ticket.language}
+              onChange={handleLanguageChange}
+              required
+            >
               <option value="selectAnyOne">--Select Any one--</option>
+              <option value="Tamil">Tamil</option>
+              <option value="English">English</option>
+              <option value="Hindi">Hindi</option>
             </select>
           </div>
-        )}
+          <div className="mt-3 handlebtn">
+            <button
+              className="btn btn-outline-dark btn-create"
+              onClick={handleCreateTicket}
+            >
+              Back
+            </button>
+            <button
+              className="btn btn-outline-success m-3 btn-create"
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
-      <div>
-        <label className='ti mt-3 mb-2'>Description:</label>
-        <br />
-          <textarea
-            className='textbox'
-          type="text"
-          value={ticket.description}
-          onChange={handleDescriptionChange}
-          required
-        ></textarea>
-      </div>
-      <div>
-        <p className='ti mt-3'>Language:</p>
-        <select value={ticket.language} onChange={handleLanguageChange} required>
-          <option value="selectAnyOne">--Select Any one--</option>
-          <option value="Tamil">Tamil</option>
-          <option value="English">English</option>
-          <option value="Hindi">Hindi</option>
-        </select>
-      </div>
-        <div className='mt-3 handlebtn'>
-          <button className='btn btn-outline-dark btn-create' onClick={handleCreateTicket}>Back</button>
-          <button className='btn btn-outline-success m-3 btn-create' type="submit">Submit</button>
-     </div>
-    </form>
-   
-  </div></div>
-  )
+    </div>
+  );
 }
 
 export default CreateTicket
