@@ -122,9 +122,9 @@ const Login = () => {
   };
 
   return (
-    <div className=' container-fluid color'>
+    <div className=' container-fluid color bg-dark '>
        <section className="forms-section">
-      <h1 className="section-title">Welcome to CRM</h1>
+      <h1 className="section-title mt-4">Welcome to CRM</h1>
       <div className="forms">
         <div className={`form-wrapper ${activeForm === 'login' ? 'is-active' : ''}`}>
           <button
