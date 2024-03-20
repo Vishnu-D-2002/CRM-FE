@@ -37,6 +37,7 @@ const CreateProduct = () => {
       
             navigate('/myproduct');
         } catch (error) {
+            setLoading(false);
             console.error('Error creating product:', error);
             alert('Error creating product. Please try again.');
         }
